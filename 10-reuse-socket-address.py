@@ -34,7 +34,7 @@ def reuse_socket_addr():
     srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     # 讓伺服器 執行 綁定 代入 (本機位址, 0)
-    srv.bind( ('', local_port) )
+    srv.bind( ('127.0.0.1', local_port) )
 
     # 讓伺服器 執行 監聽 1
     srv.listen(1)
@@ -50,9 +50,13 @@ def reuse_socket_addr():
             connection, addr = srv.accept()
             # 印出 地址
             print ('Connected by %s:%s' % (addr[0], addr[1]))
+            connection.send("a")
+
         # 例外處理 鍵盤中斷
         except KeyboardInterrupt:
+            # 中斷循環
             break
+
         # 例外處理 socket的錯誤 為 msg
         except socket.error as msg:
             # 印出 錯誤訊息

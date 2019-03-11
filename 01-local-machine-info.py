@@ -2,13 +2,11 @@
 import socket
 
 # 定義 印出機器資訊 的功能
-
-
 def print_machine_info():
-    # 主機名稱 為 從socket中 取得本機名稱
+    # 主機名稱 為 讓socket 執行 取得本機名稱
     host_name = socket.gethostname()
 
-    # 本機IP 為 從socket中 取得本機藉由名稱 代入 本機名稱
+    # 本機IP 為 讓socket 執行 取得本機藉由名稱 代入 本機名稱
     ip_address = socket.gethostbyname(host_name)
 
     # 印出 本機名稱
@@ -20,5 +18,5 @@ def print_machine_info():
 
 # 若 該檔案 為 主程式 時
 if __name__ == '__main__':
-    # 印出機器資訊
+    # 執行 印出機器資訊
     print_machine_info()

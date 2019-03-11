@@ -12,7 +12,7 @@ def test_socket_modes():
     # 讓s 執行 設定超時 代入 0.5
     s.settimeout(0.5)
 
-    # 讓s 執行 綁定 代入 (本機, 0)
+    # 讓s 執行 綁定 代入 (本機位址, 0)
     s.bind(("127.0.0.1", 0))
     
     # socket地址 為 讓s 執行 取得socket名稱

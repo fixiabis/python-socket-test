@@ -34,41 +34,73 @@ def main():
         # s 為 從socket中 建立 socket 代入 設定domain為IPV4協定, type為序列化的連接導向位元串流
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
-    # 例外處理 socket錯誤
+    # 例外處理 socket錯誤 為 e
     except socket.error as e:
         # 印出 錯誤訊息
         print("Error creating socket: %s" % e)
+
+        # 讓sys 執行 離開 代入 1
         sys.exit(1)
 
     # 測試
     try:
         # 從s中 連接 
         s.connect((host, port))
+
+    # 例外處理 socket的gai錯誤 為 e
     except socket.gaierror as e:
+        # 印出 錯誤訊息
         print("Address-related error connecting to server: %s" % e)
+
+        # 讓sys 執行 離開 代入 1
         sys.exit(1)
+        
+    # 例外處理 socket的錯誤 為 e
     except socket.error as e:
+        # 印出 錯誤訊息
         print("Connection error: %s" % e)
-        sys.exit(1)
 
-    # Third try-except block -- sending data
+        # 讓sys 執行 離開 代入 1
+        sys.exit(1)
+    
+    # 測試
     try:
+        # 訊息 為 GET 請求 檔案
         msg = "GET %s HTTP/1.0\r\n\r\n" % filename
+        
+        # 讓s 執行 送出全部 代入 讓訊息 編碼 代入 utf-8
         s.sendall(msg.encode('utf-8'))
+    
+    # 例外處理 socket的錯誤 為 e
     except socket.error as e:
+        # 印出 錯誤訊息
         print("Error sending data: %s" % e)
+        
+        # 讓sys 執行 離開 代入 1
         sys.exit(1)
 
+
+    # 無限循環
     while 1:
-        # Fourth tr-except block -- waiting to receive data from remote host
+        # 測試
         try:
+            # 緩衝 為 讓s 執行 接收 代入 2048
             buf = s.recv(2048)
+        
+        # 例外處理 socket的錯誤 為 e
         except socket.error as e:
+            # 印出 錯誤訊息
             print("Error receiving data: %s" % e)
+            
+            # 讓sys 執行 離開 代入 1
             sys.exit(1)
+
+        # 若 沒有 緩衝 長度
         if not len(buf):
+            # 離開循環
             break
-        # write the received data
+        
+        # 讓sys的stdout 執行 寫出 緩衝 解碼 utf-8
         sys.stdout.write(buf.decode('utf-8'))
 
 

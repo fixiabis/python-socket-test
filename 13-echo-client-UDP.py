@@ -10,18 +10,16 @@ host = 'localhost'
 
 # 定義 迴響client端 需要 埠號
 def echo_client(port):
-    # sock 為 讓socket 建立 socket 代入 設定domain為IPV4協定, type為TCP
+    # sock 為 讓socket 建立 socket 代入 設定domain為IPV4協定, type為UDP
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    
+
     # 伺服器地址 為 (主機, 埠號)
     server_address = (host, port)
 
     # 印出 連接到的 port
     print ("Connecting to %s port %s" % server_address)
+    message = 'This is the message.  It will be repeated.'
 
-    # 讓sock 執行 連接 代入 伺服器地址
-    sock.connect(server_address)
-    
     # 嘗試
     try:
         # 訊息 為 Test message. This will be echoed
@@ -30,41 +28,15 @@ def echo_client(port):
         # 印出 送出 訊息
         print ("Sending %s" % message)
 
-        # 讓 sock 執行 送出全部 代入 讓 訊息 執行 編碼 代入 utf-8
-        sock.sendall(message.encode('utf-8'))
+        # 送出 為 讓sock 執行 送去 代入 訊息 執行 編碼 utf-8, 伺服器地址
+        sent = sock.sendto(message.encode('utf-8'), server_address)
 
-        # 接收總數 為 0
-        amount_received = 0
-        # 期待總數 為 長度 代入 訊息
-        amount_expected = len(message)
+        # 資料, 伺服器 為 
+        data, server = sock.recvfrom(data_payload)
+        print ("received %s" % data)
 
-        # 循環 當 接收總數 < 期待總數
-        while amount_received < amount_expected:
-            # 資料 為 讓sock 執行 接收 代入 16
-            data = sock.recv(16)
-            
-            # 接收總數 累加 長度 代入 資料
-            amount_received += len(data)
-
-            # 印出 接收的資料
-            print ("Received: %s" % data)
-
-    # 例外處理 socket的錯誤 為 msg
-    except socket.error as e:
-        # 印出 錯誤訊息
-        print ("Socket error: %s" %str(e))
-
-    # 例外處理 socket的錯誤 為 msg
-    except Exception as e:
-        # 印出 錯誤訊息
-        print ("Other exception: %s" %str(e))
-
-    # 測試結果
     finally:
-        # 印出 結束連結訊息
         print ("Closing connection to the server")
-
-        # 讓sock 執行 close
         sock.close()
 
 # 若 該檔案 為 主程式 時

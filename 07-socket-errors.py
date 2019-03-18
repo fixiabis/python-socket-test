@@ -31,7 +31,7 @@ def main():
 
     # 測試
     try:
-        # s 為 從socket中 建立 socket 代入 設定domain為IPV4協定, type為序列化的連接導向位元串流
+        # s 為 從socket中 建立 socket 代入 設定domain為IPV4協定, type為TCP
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
     # 例外處理 socket錯誤 為 e

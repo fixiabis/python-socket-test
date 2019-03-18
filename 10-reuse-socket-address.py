@@ -6,7 +6,7 @@ import sys
 
 # 定義 重用socket地址 的功能
 def reuse_socket_addr():
-    # sock 為 讓socket 建立 socket 代入 設定domain為IPV4協定, type為序列化的連接導向位元串流
+    # sock 為 讓socket 建立 socket 代入 設定domain為IPV4協定, type為TCP
     sock = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
 
     # 舊狀態 為 讓sock 執行 取得socket選項 代入 正在使用的SOCKET socket選項, socket重用地址
@@ -27,7 +27,7 @@ def reuse_socket_addr():
     # 本地埠號 為 8282
     local_port = 8282
     
-    # 伺服器 為 讓socket 建立 socket 代入 設定domain為IPV4協定, type為序列化的連接導向位元串流
+    # 伺服器 為 讓socket 建立 socket 代入 設定domain為IPV4協定, type為TCP
     srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # 讓伺服器 執行 設定socket選項 代入

@@ -3,7 +3,7 @@ import socket
 
 # 定義 測試socket模式 的功能
 def test_socket_modes():
-    # s 為 讓socket 建立 socket 代入 設定domain為IPV4協定, type為序列化的連接導向位元串流
+    # s 為 讓socket 建立 socket 代入 設定domain為IPV4協定, type為TCP
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # 讓s 執行 設定阻塞 代入 非阻塞

@@ -9,7 +9,7 @@ RECV_BUF_SIZE = 4096
 
 # 定義 變更緩衝大小 的功能
 def modify_buff_size():
-    # sock 為 讓socket 建立 socket 代入 設定domain為IPV4協定, type為序列化的連接導向位元串流
+    # sock 為 讓socket 建立 socket 代入 設定domain為IPV4協定, type為TCP
     sock = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
     
     # 緩衝大小為 讓sock 執行 取得socket選項 代入 正在使用的socket選項, socket發送緩衝大小
